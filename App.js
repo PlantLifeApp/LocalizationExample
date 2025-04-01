@@ -24,6 +24,7 @@ export default function App() {
   return (
     <I18nextProvider i18n={i18n}>
       <PaperProvider>
+        <View style={{ flex: 1 }}>
         <Surface style={styles.container}>
           <Dropdown
             placeholder={t("screens.options.languagePlaceHolder")}
@@ -34,7 +35,7 @@ export default function App() {
           />
           <View style={styles.welcomeView}>
             <Text>{t('screens.home.welcome')}</Text>
-
+            <Text>{language}</Text>
           </View>
           <View style={styles.inputContainer}>
             <TextInput
@@ -52,6 +53,8 @@ export default function App() {
             </Button>
           </View>
         </Surface>
+        </View>
+
       </PaperProvider>
     </I18nextProvider>
   );
@@ -62,6 +65,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
     marginTop: 50,
+    
+    
 
   },
   dropdown: {
