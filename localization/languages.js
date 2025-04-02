@@ -1,5 +1,5 @@
 const LANGUAGES = [
-    { label: 'English', value: 'en' },
+    { label: 'English (US)', value: 'en' },
     { label: 'Suomi', value: 'fi' },
     { label: 'Svenska', value: 'sv' },
 ]

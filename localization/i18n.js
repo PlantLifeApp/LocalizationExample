@@ -10,8 +10,9 @@ const resources = {
             },
             screens: {
                 home: {
-                    welcome: "Welcome to React and react-i18next",
-                    button1: "Press me",
+                    welcome: "Welcome to our React Native localization demo!",
+                    currentTime: "It is currently:",
+                    button1: "Click me",
                     name: "Name",
                     password: "Password",
                 }
@@ -25,8 +26,9 @@ const resources = {
             },
             screens: {
                 home: {
-                    welcome: "Tervetuloa Reactiin ja react-i18nextiin",
-                    button1: "Paina minua",
+                    welcome: "Tervetuloa React Native lokalisointidemoomme!",
+                    currentTime: "Nyt on:",
+                    button1: "Klikkaa minua",
                     name: "Nimi",
                     password: "Salasana"
                 }
@@ -40,8 +42,9 @@ const resources = {
             },
             screens: {
                 home: {
-                    welcome: "Välkommen till React och react-i18next",
-                    button1: "Tryck på mig",
+                    welcome: "Välkommen till vår React Native lokalisering demo!",
+                    button1: "Klicka på mig",
+                    currentTime: "Det är för närvarande:",
                     name: "Namn",
                     password: "Lösenord",
                 }
@@ -60,16 +63,16 @@ const getStoredLanguage = async () => {
     }
 }
 
-getStoredLanguage().then((lang) => {
-    i18n
-        .use(initReactI18next)
-        .init({
-            resources,
-            lng: lang,
-            fallbackLng: "en",
-            interpolation: {
-                escapeValue: false
-            }
-        })
-})
+const i18nInit = getStoredLanguage().then((lang) => {
+    return i18n
+      .use(initReactI18next)
+      .init({
+        resources,
+        lng: lang,
+        fallbackLng: "en",
+        interpolation: { escapeValue: false },
+      })
+  })
+
+export { i18nInit }
 export default i18n
