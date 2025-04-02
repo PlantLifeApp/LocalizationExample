@@ -52,6 +52,7 @@ const resources = {
 const getStoredLanguage = async () => {
     try {
         const storedLang = await AsyncStorage.getItem("language")
+        console.log(storedLang)
         return storedLang || "en"
     } catch (error) {
         console.error("Error fetching stored language", error)

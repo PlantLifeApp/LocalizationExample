@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { I18nextProvider } from 'react-i18next'
@@ -7,19 +7,33 @@ import { useTranslation } from "react-i18next";
 import { Dropdown } from "react-native-paper-dropdown"
 import LANGUAGES from "./localization/languages"
 import { PaperProvider, Surface, Button, TextInput } from 'react-native-paper'
+import AsyncStorage  from "@react-native-async-storage/async-storage"
 
 export default function App() {
   const { t, i18n } = useTranslation();
-
   const [language, setLanguage] = useState(i18n.language)
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
+  const [currentDateTime, setCurrentDateTime] = useState({
+  date: new Date().toLocaleDateString(),
+  time: new Date().toLocaleTimeString(),
+});
   const changeLanguage = async (lng) => {
     i18n.changeLanguage(lng)
     setLanguage(lng)
     await AsyncStorage.setItem("language", lng)
   }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDateTime({
+        date: new Date().toLocaleDateString(), // Update the date
+        time: new Date().toLocaleTimeString(), // Update the time
+      });
+    }, 1000);
+  
+    return () => clearInterval(timer); // Cleanup the interval on component unmount
+  }, []);
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -34,9 +48,10 @@ export default function App() {
             style={styles.dropdown}
           />
           <View style={styles.welcomeView}>
-            <Text>{t('screens.home.welcome')}</Text>
-            <Text>{language}</Text>
-          </View>
+  <Text>{t('screens.home.welcome')}</Text>
+  <Text>{currentDateTime.date}</Text> {/* Display the current date */}
+  <Text>{currentDateTime.time}</Text> {/* Display the current time */}
+</View>
           <View style={styles.inputContainer}>
             <TextInput
               placeholder={t('screens.home.name')}
