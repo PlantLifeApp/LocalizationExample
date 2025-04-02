@@ -13,6 +13,7 @@ const Clock = () => {
         time: new Date().toLocaleTimeString(),
     })
 
+    // function to get the locale based on the current language
     const getLocale = (lang) => {
         switch (lang) {
             case 'fi': return 'fi-FI'

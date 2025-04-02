@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { StyleSheet, Text, View } from 'react-native'
 import { PaperProvider, Surface, Button, TextInput } from 'react-native-paper'
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"
 import { Dropdown } from "react-native-paper-dropdown"
 
 import AsyncStorage  from "@react-native-async-storage/async-storage"
-import { I18nextProvider, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import LANGUAGES from "./localization/languages"
 
 import Clock from "./components/Clock"
 
 export default function AppContent() {
 
-      const { t, i18n } = useTranslation()
-      const [language, setLanguage] = useState(i18n.language)
-      const [name, setName] = useState("")
-      const [password, setPassword] = useState("")
+    // get the i18n instance and the translation function
+    // useTranslation is a hook that returns the i18n instance and the translation function
+    const { t, i18n } = useTranslation()
+
+    // langauge state variable for the dropdown menu
+    const [language, setLanguage] = useState(i18n.language)
     
-      const changeLanguage = async (lng) => {
+    // sets the language based on the selected value from the dropdown and stores it in AsyncStorage
+    const changeLanguage = async (lng) => {
         i18n.changeLanguage(lng)
         setLanguage(lng)
         await AsyncStorage.setItem("language", lng)
-      }
+    }
+
+    // state variables for demo purposes
+    const [name, setName] = useState("")
+    const [password, setPassword] = useState("")
 
   return (
 
@@ -41,9 +48,7 @@ export default function AppContent() {
           <View style={styles.welcomeView}>
             <Text>{t('screens.home.welcome')}</Text>
             <View style={{height: 20}} />
-
             <Clock />
-
           </View>
 
           <View style={styles.inputContainer}>
@@ -74,7 +79,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
     height: "100%",
-    //marginTop: 32,
   },
   dropdown: {
     paddingHorizontal: 10,
@@ -93,4 +97,4 @@ const styles = StyleSheet.create({
     margin: 10,
     marginBottom: 32
   }
-});
+})
